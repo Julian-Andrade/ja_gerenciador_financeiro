@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id       String @id @default(uuid())
+  name     String
+  email    String @unique
+  password String
+}
+
+model Sales {
+  id                String @id @default(uuid())
+  date_sale         String
+  turn              Int
+  vendor            String
+  over              Float?
+  fault             Float?
+  cash              Float?
+  credit_card       Float?
+  debit_cart        Float?
+  pix               Float?
+  promissory        Float?
+  payment           Float?
+  tobacco           Float?
+  total_sale        Float
+  rent_part         Float?
+  carlton_part      Float?
+  purchase_part     Float?
+  contabilitie_part Float?
+  thirteenth_part   Float?
+  energetic_part    Float?
+  energy_part       Float?
+  gudang_part       Float?
+  tax_part          Float?
+  ticket_part       Float?
+  salary_part       Float?
+  security_part     Float?
+  icecream_part     Float?
+  total_geral_part  Float?
+}
