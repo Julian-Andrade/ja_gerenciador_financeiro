@@ -8,17 +8,12 @@ const {
 
 const bcrypt = require('bcrypt')
 
-const { userValidation } = require('../validations/user')
-
 exports.create = async (req, res) => {
   try {
-    // Validação
-    const data = await userValidation.parse(req.body)
-
     // Criptografar a senha
     req.body.password = bcrypt.hashSync(req.body.password, 10)
 
-    const user = await createUser(data)
+    const user = await createUser(req.body)
     res.status(200).send(user)
   } catch (error) {
     res.status(400).send(error)
@@ -55,7 +50,7 @@ exports.update = async (req, res) => {
 exports.remove = async (req, res) => {
   try {
     await removeUser(req.params.id)
-    res.status(200).send(user)
+    res.status(200).send()
   } catch (error) {
     res.status(400).send(error)
   }

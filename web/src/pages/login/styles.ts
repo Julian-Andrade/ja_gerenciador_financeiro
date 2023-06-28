@@ -46,7 +46,7 @@ export const ContentText = styled.p`
 export const CreateAccount = styled.p`
   width: 100%;
   max-width: 5.5rem;
-  margin: 0 auto;
+  margin: 1rem auto;
 
   font-weight: bold;
 

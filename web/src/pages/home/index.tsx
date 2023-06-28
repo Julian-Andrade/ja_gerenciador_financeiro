@@ -1,3 +1,9 @@
+import { Content } from '../../components'
+
 export default function Home() {
-  return <p>Home</p>
+  return (
+    <Content>
+      <p>Home</p>
+    </Content>
+  )
 }

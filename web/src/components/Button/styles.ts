@@ -1,13 +1,13 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 interface ButtonContainerProps {
-  color?: 'green'
+  bg?: string
 }
 
-export const ButtonContainer = styled.button`
+export const ButtonContainer = styled.button<ButtonContainerProps>`
   padding: 0.75rem 2.8rem;
 
-  background: ${({ theme }) => theme.colors['base-button']};
+  background: ${({ bg }) => bg};
   color: ${({ theme }) => theme.colors['brand-white']};
 
   font-weight: 700;
@@ -15,9 +15,6 @@ export const ButtonContainer = styled.button`
   line-height: 1.3rem;
 
   border: none;
-  border-radius: 0.5rem;
-
-  margin-bottom: 1rem;
 
   transition: 0.4s;
 
@@ -29,11 +26,4 @@ export const ButtonContainer = styled.button`
   &:not(:disabled):hover {
     opacity: 0.8;
   }
-
-  ${({ color }) =>
-    color === 'green' &&
-    css`
-      background: ${({ theme }) => theme.colors['red-500']};
-      color: ${({ theme }) => theme.colors['brand-white']};
-    `}
 `

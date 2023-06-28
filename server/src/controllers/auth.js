@@ -31,7 +31,7 @@ exports.login = async (req, res) => {
       return res.status(200).send({ token })
     }
     {
-      return res.status(401).send({ message: 'Usuário e/ou Senha incorretos!' })
+      return res.status(401).send({ message: 'Usuário e/ou senha incorretos!' })
     }
   } catch (error) {
     res.status(400).send(error)

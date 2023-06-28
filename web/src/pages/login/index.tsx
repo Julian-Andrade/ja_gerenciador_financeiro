@@ -1,9 +1,10 @@
 import { Input, Button, Loading } from '../../components'
 import { useNavigate } from 'react-router-dom'
+import { useTheme } from 'styled-components'
 import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
-import axios from 'axios'
+import api from '../../services/api'
 import {
   LoginContainer,
   Logo,
@@ -32,6 +33,8 @@ interface ErrorsType {
 
 export default function Login() {
   const [loading, setLoading] = useState(false)
+
+  const { colors } = useTheme()
   const navigate = useNavigate()
 
   const confirmLoginForm = useForm<ConfirmLoginData>({
@@ -45,9 +48,16 @@ export default function Login() {
   const handleConfirmLogin = async (data: ConfirmLoginData) => {
     try {
       setLoading(true)
-      const response = await axios.post('http://localhost:3333/login', data)
-      console.log(response?.data)
+
+      const response = await api.post('/login', data)
+
+      const token = { token: response?.data?.token }
+
+      localStorage.setItem('ger_fin', JSON.stringify(token))
+
       setLoading(false)
+
+      navigate('/')
     } catch (error) {
       alert('Error, tente novamente')
       setLoading(false)
@@ -57,14 +67,14 @@ export default function Login() {
   return (
     <LoginContainer>
       <LoginContent>
-        <Logo>Login</Logo>
-        <ContentText>
-          Preencha os campos abaixo para efetuar o login.
-        </ContentText>
         {loading ? (
           <Loading />
         ) : (
           <FormProvider {...confirmLoginForm}>
+            <Logo>Login</Logo>
+            <ContentText>
+              Preencha os campos abaixo para efetuar o login.
+            </ContentText>
             <form onSubmit={handleSubmit(handleConfirmLogin)}>
               <Input
                 label='E-mail'
@@ -80,13 +90,13 @@ export default function Login() {
                 {...register('password')}
                 error={errors.password?.message}
               />
-              <Button text='Acessar' type='submit' />
+              <Button text='Acessar' bg={colors['base-button']} type='submit' />
             </form>
+            <CreateAccount onClick={() => navigate('/register')}>
+              Cadastre-se
+            </CreateAccount>
           </FormProvider>
         )}
-        <CreateAccount onClick={() => navigate('/register')}>
-          Cadastre-se
-        </CreateAccount>
       </LoginContent>
     </LoginContainer>
   )

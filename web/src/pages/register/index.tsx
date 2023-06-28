@@ -1,10 +1,9 @@
-import axios from 'axios'
-import { useState } from 'react'
 import { Input, Button } from '../../components'
 import { useNavigate } from 'react-router-dom'
 import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
+import api from '../../services/api'
 import {
   RegisterContainer,
   Logo,
@@ -48,8 +47,8 @@ export default function Register() {
 
   const { errors } = formState as unknown as ErrorsType
 
-  const handleUserRegister = async (data: RegisterData) => {
-    await axios.post('http://localhost:3333/user', data)
+  const handleUserRegister = async (data: ConfirmRegisterData) => {
+    await api.post('/user', data)
     alert('Usuário cadastrado com sucesso!')
   }
 
